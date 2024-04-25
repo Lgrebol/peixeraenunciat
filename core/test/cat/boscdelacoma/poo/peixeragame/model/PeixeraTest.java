@@ -82,5 +82,4 @@ public class PeixeraTest {
         instance.esborrarPeix(peix);
         assertEquals(count-1, instance.getPeixos().size());
     }
-
-}
+} 

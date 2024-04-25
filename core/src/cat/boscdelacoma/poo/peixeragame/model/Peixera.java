@@ -9,7 +9,7 @@ public class Peixera {
     private final int HEIGHT;
     private List<Peix> peixos;
 
-    private Peixera(int width, int height) {
+    public Peixera(int width, int height) {
         this.WIDTH = width;
         this.HEIGHT = height;
         this.peixos = new ArrayList<>();
@@ -42,7 +42,7 @@ public class Peixera {
         peixos.remove(peix);
     }
 
-    public void afegirPeix(Peix peix) {
+    public void afegir(Peix peix) {
         peixos.add(peix);
     }
 
