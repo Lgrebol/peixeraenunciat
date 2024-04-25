@@ -1,16 +1,60 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package cat.boscdelacoma.poo.peixeragame.model;
 
-/**
- *
- * @author Sergi
- */
-public class Peixera {
+import java.util.ArrayList;
+import java.util.List;
 
-    Peixera(int i, int i0) {
+public class Peixera {
+    private static Peixera instance;
+    private final int WIDTH;
+    private final int HEIGHT;
+    private List<Peix> peixos;
+
+    private Peixera(int width, int height) {
+        this.WIDTH = width;
+        this.HEIGHT = height;
+        this.peixos = new ArrayList<>();
     }
-    
+
+    public static Peixera getInstance() {
+        if (instance == null) {
+            instance = new Peixera(50, 50);
+        }
+        return instance;
+    }
+
+    public int getPeixosNous() {
+        return peixos.size();
+    }
+
+    public int getParelles() {
+        int parelles = 0;
+        for (int i = 0; i < peixos.size() - 1; i++) {
+            for (int j = i + 1; j < peixos.size(); j++) {
+                if (peixos.get(i).esParella(peixos.get(j))) {
+                    parelles++;
+                }
+            }
+        }
+        return parelles;
+    }
+
+    public void esborrarPeix(Peix peix) {
+        peixos.remove(peix);
+    }
+
+    public void afegirPeix(Peix peix) {
+        peixos.add(peix);
+    }
+
+    public int getAmplada() {
+        return WIDTH;
+    }
+
+    public int getAlt() {
+        return HEIGHT;
+    }
+
+    public List<Peix> getPeixos() {
+        return peixos;
+    }
 }
