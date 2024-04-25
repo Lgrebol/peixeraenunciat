@@ -6,6 +6,7 @@ package cat.boscdelacoma.poo.peixeragame.model;
  */
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.physics.box2d.Body;
 
 public class Peix {
     private float x;
@@ -15,8 +16,9 @@ public class Peix {
     private Direccio direccio;
     private Peixera peixera;
     private Sprite sprite;
+    private Body body;
 
-    public Peix(float x, float y, Peixera peixera) {
+    public Peix(float x, float y,Peixera peixera) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -81,16 +83,40 @@ public class Peix {
         this.sprite = sprite;
     }
 
-    void setPosition(float x, float y) {
-        
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    
+    
+    public boolean esParella(Peix get){
+        return false;
     }
 
-    void canviDireccio() {
+    public void canviDireccio() {
+        switch (this.direccio) {
+            case DRETA:
+                this.direccio = Direccio.ESQUERRA;
+                break;
+            case ESQUERRA:
+                this.direccio = Direccio.DRETA;
+                break;
+            case AMUNT:
+                this.direccio = Direccio.AVALL;       
+                break;
+            case AVALL:
+                this.direccio = Direccio.AMUNT;
+                break;
+            default:
+                break;
+        }
+            
         
     }
 
     void setHeigh(int i) {
-        
+        this.height = i;
     }
 
     void setPare(Peix pare) {
@@ -107,9 +133,16 @@ public class Peix {
     Peix getMare() {
         return null;
     }
-    
-    public boolean esParella(Peix get){
-        return false;
+
+    public void setBody(Body body) {
+        this.body = body;
+    }
+
+    public void updateVelocity() {
+        this.getBody().setLinearVelocity(0,5);
+    }
+
+    public Body getBody() {
+        return body;
     }
 }
-
