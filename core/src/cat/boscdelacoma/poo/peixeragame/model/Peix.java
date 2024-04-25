@@ -40,7 +40,7 @@ public class Peix {
     public void setY(float y) {
         this.y = y;
     }
-
+    
     public int getWidth() {
         return width;
     }
@@ -106,6 +106,10 @@ public class Peix {
 
     Peix getMare() {
         return null;
+    }
+    
+    public boolean esParella(Peix get){
+        return false;
     }
 }
 
