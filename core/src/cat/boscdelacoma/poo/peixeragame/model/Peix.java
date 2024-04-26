@@ -17,14 +17,13 @@ public class Peix {
     private Peixera peixera;
     private Sprite sprite;
     private Body body;
+    private Peix pare;
+    private Peix mare;
 
-    public Peix(float x, float y,Peixera peixera) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.direccio = Direccio.DRETA;
-        this.peixera = peixera;
+    public Peix(int x, int y,Peixera peixera) {
+        setX(x);
+        setY(y);
+        setPeixera(peixera);
     }
 
     public float getX() {
@@ -119,19 +118,20 @@ public class Peix {
         this.height = i;
     }
 
-    void setPare(Peix pare) {
-        
+    public void setPare(Peix pare) {
+        this.pare = pare;
     }
 
     Peix getPare() {
-        return null;
+        return pare;
     }
 
-    void setMare(Peix mare) {
+    public void setMare(Peix mare) {
+        this.mare = mare;
     }
 
     Peix getMare() {
-        return null;
+        return mare;
     }
 
     public void setBody(Body body) {

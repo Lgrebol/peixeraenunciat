@@ -10,8 +10,9 @@ package cat.boscdelacoma.poo.peixeragame.model;
  */
 public class PeixFemella extends Peix {
 
-    public PeixFemella(float x, float y, Peixera peixera) {
-        super(x, y, peixera);
+    public PeixFemella(int i, int i0, Direccio value, Peixera peixera) {
+        super(i, i0, peixera);
+        setDireccio(value);
     }
 
 }

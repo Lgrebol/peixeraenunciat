@@ -10,7 +10,7 @@ package cat.boscdelacoma.poo.peixeragame.model;
  */
 public class Tauro extends Peix{
     
-    public Tauro(float x, float y, Peixera peixera) {
+    public Tauro(int x, int y, Peixera peixera) {
         super(x, y, peixera);
     }
     
