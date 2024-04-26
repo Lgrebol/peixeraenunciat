@@ -1,4 +1,4 @@
-package cat.boscdelacoma.poo.peixeragame.view;
+    package cat.boscdelacoma.poo.peixeragame.view;
 
 import cat.boscdelacoma.poo.peixeragame.utils.TextureFiles;
 import cat.boscdelacoma.poo.peixeragame.physics.PeixeraModel;

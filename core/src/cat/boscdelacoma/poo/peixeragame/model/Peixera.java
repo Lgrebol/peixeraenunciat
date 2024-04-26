@@ -55,6 +55,6 @@ public class Peixera {
     }
 
     public List<Peix> getPeixos() {
-        return peixos;
+        return new ArrayList<>(peixos);
     }
 }
