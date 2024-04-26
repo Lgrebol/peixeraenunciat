@@ -19,6 +19,7 @@ public class Peix {
     private Body body;
     private Peix pare;
     private Peix mare;
+    static final float VELOCITAT = 6;
 
     public Peix(int x, int y,Peixera peixera) {
         setX(x);
@@ -27,19 +28,31 @@ public class Peix {
     }
 
     public float getX() {
+        if (getBody() != null)
+            return getBody().getPosition().x;
         return x;
     }
 
     public void setX(float x) {
         this.x = x;
+        if (body != null) {
+            body.getPosition().x = x;
+            updateVelocity();
+        }
     }
 
     public float getY() {
+        if (getBody() != null)
+            return getBody().getPosition().y;
         return y;
     }
 
     public void setY(float y) {
         this.y = y;
+        if (body != null) {
+            body.getPosition().y = y;
+            updateVelocity();
+        }
     }
     
     public int getWidth() {
@@ -139,17 +152,44 @@ public class Peix {
     }
 
     public void updateVelocity() {
-        this.getBody().setLinearVelocity(0,5);
+        if(direccio == Direccio.AVALL) {
+            if (getBody().getPosition().y + sprite.getHeight() < 8){
+                setDireccio(Direccio.AMUNT);
+                getBody().setLinearVelocity(0, VELOCITAT);
+            } else {
+                getBody().setLinearVelocity(0, -VELOCITAT);
+                
+            }
+        } else if (direccio == Direccio.AMUNT) {
+            if (getBody().getPosition().y + sprite.getHeight() < 8){
+                setDireccio(Direccio.AVALL);
+                getBody().setLinearVelocity(0, -VELOCITAT);
+            } else {
+                getBody().setLinearVelocity(0, VELOCITAT);
+                
+            }
+            
+        }else if (direccio == Direccio.ESQUERRA) {
+            if (getBody().getPosition().x + sprite.getWidth() < 8){
+                setDireccio(Direccio.DRETA);
+                getBody().setLinearVelocity(VELOCITAT, 0);
+            } else {
+                getBody().setLinearVelocity(-VELOCITAT, 0);
+                
+            }
+        } else if (direccio == Direccio.DRETA) {
+            if (getBody().getPosition().x + sprite.getWidth() < 8){
+                setDireccio(Direccio.ESQUERRA);
+                getBody().setLinearVelocity(-VELOCITAT, 0);
+            } else {
+                getBody().setLinearVelocity(VELOCITAT, 0);
+                
+            }
+        }
     }
-
     public Body getBody() {
         return this.body;
     }
-    public boolean esNou() {
-    // Verificar si el peix tiene un cuerpo asociado
-    return this.getBody() == null;
-}
-
-    
+        
 }
 
