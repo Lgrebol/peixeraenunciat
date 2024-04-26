@@ -22,10 +22,6 @@ public class Peixera {
         return instance;
     }
 
-    public int getPeixosNous() {
-        return peixos.size();
-    }
-
     public int getParelles() {
         int parelles = 0;
         for (int i = 0; i < peixos.size() - 1; i++) {
@@ -41,9 +37,16 @@ public class Peixera {
     public void esborrarPeix(Peix peix) {
         peixos.remove(peix);
     }
-
-    public void afegir(Peix peix) {
-        peixos.add(peix);
+    
+    public void afegir(Peix peixosNous ) {
+        peixos.add(peixosNous);
+    }
+    
+    public void afegir(List<Peix> peixosNous ) {
+        for( Peix peix : peixosNous){
+            peixos.add(peix);
+        }
+                
     }
 
     public int getAmplada() {
