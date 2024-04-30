@@ -204,70 +204,85 @@ public class PeixeraModel implements ContactListener {
      ***
      * @param contact
      */
-    @Override
-    public void beginContact(Contact contact) {
-        Peix peixA = null, peixB = null;
-        Object o1 = contact.getFixtureA().getBody().getUserData();
-        Object o2 = contact.getFixtureB().getBody().getUserData();
-        
+ @Override
+public void beginContact(Contact contact) {
+    Peix peixA = null, peixB = null;
+    Object o1 = contact.getFixtureA().getBody().getUserData();
+    Object o2 = contact.getFixtureB().getBody().getUserData();
+
+    if (o1 instanceof Peix) {
+        peixA = (Peix) contact.getFixtureA().getBody().getUserData();
+    }
+    if (o2 instanceof Peix) {
+        peixB = (Peix) contact.getFixtureB().getBody().getUserData();
+    }
+
+    // SI UN PEIX ARRIBA A ALGUNA DE LES VORES DE LA PEIXERA
+    if ((o1 instanceof String && o1.equals("mur"))
+            || (o2 instanceof String && o2.equals("mur"))) {
         if (o1 instanceof Peix) {
-            peixA = (Peix) contact.getFixtureA().getBody().getUserData();
-            
+            ((Peix) o1).canviDireccio();
         }
         if (o2 instanceof Peix) {
-            peixB = (Peix) contact.getFixtureB().getBody().getUserData();
+            ((Peix) o2).canviDireccio();
         }
-        
-        // SI UN PEIX ARRIBA A ALGUNA DE LES VORES DE LA PEIXERA
-        if ((o1 instanceof String && o1.equals("mur"))
-                || (o2 instanceof String && o2.equals("mur"))) {
-            if (o1 instanceof Peix) {
-                ((Peix) o1).canviDireccio();
-            }
-            if (o2 instanceof Peix) {
-                ((Peix) o2).canviDireccio();
-            }
-        }
-        
-        // si dos peixos o taurons del mateix sexe es toquen -> es moren tots dos
-        if (peixA != null && peixB != null
-                && ((peixA instanceof PeixMascle && peixB instanceof PeixMascle)
-                || (peixB instanceof PeixFemella && peixA instanceof PeixFemella)
-                || (peixA instanceof TauroMascle && peixB instanceof TauroMascle)
-                || (peixB instanceof TauroFemella && peixA instanceof TauroFemella))) {
-            
-            if (peixosMorts.isEmpty()) {
-                peixosMorts.add(peixB);
-                peixosMorts.add(peixA);
-                System.out.println("Tocat: s'ha mort el " + peixA.getClass().getSimpleName());
-                System.out.println("Tocat: s'ha mort el peix" + peixA.getClass().getSimpleName());
-                contact.setEnabled(false);
-            }
-        }
-        
-        // si dos peixos del mateix sexe es toquen -> es moren tots dos
-        if (peixA != null && peixB != null) {
-            
-            if (peixA instanceof Tauro && peixB instanceof PeixMascle && peixosMorts.isEmpty()) {
-                peixosMorts.add(peixB);
-                System.out.println("Tauro es menja peix: s'ha mort el " + peixB.getClass().getSimpleName());
-                
-            } else if (peixB instanceof Tauro && peixA instanceof PeixMascle && peixosMorts.isEmpty()) {
-                peixosMorts.add(peixA);
-                System.out.println("Tauro es menja peix: s'ha mort el " + peixA.getClass().getSimpleName());
-                
-            } else if (peixA instanceof Tauro && peixB instanceof PeixFemella && peixosMorts.isEmpty()) {
-                peixosMorts.add(peixB);
-                System.out.println("Tauro es menja peix: s'ha mort el " + peixA.getClass().getSimpleName());
-                
-            } else if (peixB instanceof Tauro && peixA instanceof PeixFemella && peixosMorts.isEmpty()) {
-                peixosMorts.add(peixA);
-                System.out.println("Tauro es menja peix: s'ha mort el " + peixA.getClass().getSimpleName());
-                
-            }
+    }
+
+    // si dos peixos o taurons del mateix sexe es toquen -> es moren tots dos
+    if (peixA != null && peixB != null
+            && ((peixA instanceof PeixMascle && peixB instanceof PeixMascle)
+            || (peixB instanceof PeixFemella && peixA instanceof PeixFemella)
+            || (peixA instanceof TauroMascle && peixB instanceof TauroMascle)
+            || (peixB instanceof TauroFemella && peixA instanceof TauroFemella))) {
+
+        if (peixosMorts.isEmpty()) {
+            peixosMorts.add(peixB);
+            peixosMorts.add(peixA);
+            System.out.println("Tocat: s'ha mort el " + peixA.getClass().getSimpleName());
+            System.out.println("Tocat: s'ha mort el peix" + peixA.getClass().getSimpleName());
             contact.setEnabled(false);
         }
     }
+
+    // si dos peixos del mateix sexe es toquen -> es moren tots dos
+    if (peixA != null && peixB != null) {
+
+        if (peixA instanceof Tauro && peixB instanceof PeixMascle && peixosMorts.isEmpty()) {
+            peixosMorts.add(peixB);
+            System.out.println("Tauro es menja peix: s'ha mort el " + peixB.getClass().getSimpleName());
+
+        } else if (peixB instanceof Tauro && peixA instanceof PeixMascle && peixosMorts.isEmpty()) {
+            peixosMorts.add(peixA);
+            System.out.println("Tauro es menja peix: s'ha mort el " + peixA.getClass().getSimpleName());
+
+        } else if (peixA instanceof Tauro && peixB instanceof PeixFemella && peixosMorts.isEmpty()) {
+            peixosMorts.add(peixB);
+            System.out.println("Tauro es menja peix: s'ha mort el " + peixA.getClass().getSimpleName());
+
+        } else if (peixB instanceof Tauro && peixA instanceof PeixFemella && peixosMorts.isEmpty()) {
+            peixosMorts.add(peixA);
+            System.out.println("Tauro es menja peix: s'ha mort el " + peixA.getClass().getSimpleName());
+
+        }
+        contact.setEnabled(false);
+    }
+
+    // Si un peix o tauró femella és tocat per una medusa, l'animal que toca mor
+    if ((o1 instanceof String && o1.equals("medusa") && o2 instanceof PeixFemella)
+            || (o2 instanceof String && o2.equals("medusa") && o1 instanceof PeixFemella)) {
+        if (o1 instanceof PeixFemella) {
+            peixosMorts.add((PeixFemella) o1);
+            contact.setEnabled(false);
+            System.out.println("La medusa ha mort el peix femella: " + ((PeixFemella) o1).getClass().getSimpleName());
+        }
+        if (o2 instanceof PeixFemella) {
+            peixosMorts.add((PeixFemella) o2);
+            contact.setEnabled(false);
+            System.out.println("La medusa ha mort el peix femella: " + ((PeixFemella) o2).getClass().getSimpleName());
+        }
+    }
+}
+
     
     @Override
     public void endContact(Contact contact) {

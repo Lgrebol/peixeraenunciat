@@ -8,6 +8,8 @@ import cat.boscdelacoma.poo.peixeragame.model.Peixera;
 import cat.boscdelacoma.poo.peixeragame.model.Tauro;
 import cat.boscdelacoma.poo.peixeragame.model.TauroFemella;
 import cat.boscdelacoma.poo.peixeragame.model.TauroMascle;
+import cat.boscdelacoma.poo.peixeragame.model.Medusa;
+import cat.boscdelacoma.poo.peixeragame.model.MedusaMascle;
 
 /**
  * Classe de suport a la peixera
@@ -169,8 +171,8 @@ public class PeixeraUtils {
      * Crea un fill/a (aleatori) entre dos taurons.
      *
      * @param peixera la peixera on es crea el tauro
-     * @param peixA un dels taurons de la parella que crea el fill
-     * @param peixB l'altre tauro de la parella que crea el fill
+     * @param tauroA un dels taurons de la parella que crea el fill
+     * @param tauroB l'altre tauro de la parella que crea el fill
      */   
     public static Tauro crearTauroFill(Peixera peixera, Peix tauroA, Peix tauroB) {
         Tauro tauroFill = null;
@@ -194,6 +196,37 @@ public class PeixeraUtils {
         }
         return tauroFill;
     }
+    
+    
+    
+        /**
+     * Crea una quantitat de medusa a la peixera (100% mascles)
+     *
+     * @param peixera on es creen les meduses
+     * @param quantitat la quanitat de meduses que es creen
+     * @param nMeduses la quanitat de meduses que es creen
+     */
+    public static void crearMedusa(Peixera peixera, int nMeduses) {
+        crearMedusesMascle(peixera, nMeduses);
+    }
+
+    private static void crearMedusesMascle(Peixera peixera, int nMeduses) {
+    for (int i = 0; i < nMeduses; i++) {
+        peixera.afegir(crearMedusaMascle(peixera, nMeduses));
+    }
+}
+    /**
+     * Crea una medusa mascle a la peixera
+     *
+     * @param peixera la peixera on es crea la medusa
+     */
+    private static Medusa crearMedusaMascle(Peixera peixera, int nMeduses) {
+        return new MedusaMascle(NumberUtils.getNumberBetween(0, peixera.getAmplada()),
+                NumberUtils.getNumberBetween(0, peixera.getAlt()),
+                Direccio.values()[NumberUtils.getNumberBetween(0, Direccio.values().length - 1)],
+                peixera);
+    }
+
     //</editor-fold>
 
 }

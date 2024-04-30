@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 public class DesktopLauncher {
 
     public static void main(String[] arg) {
-        int nPeixos, nTaurons = 0;
+        int nPeixos, nTaurons, nMeduses = 0;
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setForegroundFPS(60);
         config.setTitle("Peixera Game");
@@ -21,14 +21,22 @@ public class DesktopLauncher {
             nPeixos = Integer.parseInt(JOptionPane.showInputDialog(null, "Quants peixos vols crear?", "Peixera", JOptionPane.QUESTION_MESSAGE));
             if (nPeixos < 0 || nPeixos > 300) {
                 JOptionPane.showMessageDialog(null, "El valor no és vàlid. No pot ser menor a 0 ni major a 300", "Error en l'entrada", JOptionPane.ERROR_MESSAGE);
-            } else {
-                nTaurons = Integer.parseInt(JOptionPane.showInputDialog(null, "Quants taurons vols crear?", "Peixera", JOptionPane.QUESTION_MESSAGE));
-                if (nTaurons < 0 || nTaurons > 100) {
-                    JOptionPane.showMessageDialog(null, "El valor no és vàlid. No pot ser menor a 0 ni major a 100", "Error en l'entrada", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    new Lwjgl3Application(new PeixeraGame(nPeixos, nTaurons), config);
-                }
+                return;
             }
+            
+            nTaurons = Integer.parseInt(JOptionPane.showInputDialog(null, "Quants taurons vols crear?", "Peixera", JOptionPane.QUESTION_MESSAGE));
+            if (nTaurons < 0 || nTaurons > 100) {
+                JOptionPane.showMessageDialog(null, "El valor no és vàlid. No pot ser menor a 0 ni major a 100", "Error en l'entrada", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            nMeduses = Integer.parseInt(JOptionPane.showInputDialog(null, "Quantes meduses vols crear?", "Peixera", JOptionPane.QUESTION_MESSAGE));
+            if (nMeduses < 0 || nMeduses > 200) {
+                JOptionPane.showMessageDialog(null, "El valor no és vàlid. No pot ser menor a 0 ni major a 200", "Error en l'entrada", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            new Lwjgl3Application(new PeixeraGame(nPeixos, nTaurons, nMeduses), config);
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "El valor no és vàlid", "Error en l'entrada", JOptionPane.ERROR_MESSAGE);

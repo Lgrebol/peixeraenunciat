@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class TextureFiles {
 
+    // Les textures per als peixos i taurons (que poden canviar de direcció)
     public static final Texture[] PEIX_M_TEXTURE = {
         new Texture("peixMEsquerre64px.png"),
         new Texture("peixMDreta64px.png"),
@@ -32,4 +33,10 @@ public class TextureFiles {
         new Texture("tauroFDreta.png"),
         new Texture("tauroFAmunt.png"),
         new Texture("tauroFAvall.png")};
+    
+        public static final Texture[] MEDUSA_M_TEXTURE = {
+        new Texture("Medusa.png"),
+        new Texture("Medusa.png"),
+        new Texture("Medusa.png"),
+        new Texture("Medusa.png")};
 }
