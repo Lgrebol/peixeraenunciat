@@ -221,7 +221,7 @@ public class PeixeraUtils {
      * @param peixera la peixera on es crea la medusa
      */
     private static Medusa crearMedusaMascle(Peixera peixera, int nMeduses) {
-        return new MedusaMascle(NumberUtils.getNumberBetween(0, peixera.getAmplada()),
+        return new MedusaMascle(NumberUtils.getNumberBetween(0, peixera.getAmplada()), 
                 NumberUtils.getNumberBetween(0, peixera.getAlt()),
                 Direccio.values()[NumberUtils.getNumberBetween(0, Direccio.values().length - 1)],
                 peixera);

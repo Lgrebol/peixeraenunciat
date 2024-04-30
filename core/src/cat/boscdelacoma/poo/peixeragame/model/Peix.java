@@ -5,6 +5,7 @@ package cat.boscdelacoma.poo.peixeragame.model;
  * @author Sergi
  */
 
+import cat.boscdelacoma.poo.peixeragame.physics.PeixeraModel;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.Body;
 
@@ -13,9 +14,9 @@ public class Peix {
     private float y;
     private int width;
     private int height;
-    private Direccio direccio;
+    public Direccio direccio;
     private Peixera peixera;
-    private Sprite sprite;
+    public Sprite sprite;
     private Body body;
     private Peix pare;
     private Peix mare;
@@ -151,41 +152,46 @@ public class Peix {
         this.body = body;
     }
 
-    public void updateVelocity() {
-        if(direccio == Direccio.AVALL) {
-            if (getBody().getPosition().y + sprite.getHeight() < 8){
+public void updateVelocity() {
+
+        if (this.direccio == Direccio.AVALL) {
+            if (getBody().getPosition().y + sprite.getHeight() < 8) {
                 setDireccio(Direccio.AMUNT);
                 getBody().setLinearVelocity(0, VELOCITAT);
+
             } else {
                 getBody().setLinearVelocity(0, -VELOCITAT);
-                
             }
-        } else if (direccio == Direccio.AMUNT) {
-            if (getBody().getPosition().y + sprite.getHeight() < 8){
+        } else if (this.direccio == Direccio.AMUNT) {
+            if (getBody().getPosition().y + sprite.getHeight() > PeixeraModel.WORLD_HEIGHT) {
                 setDireccio(Direccio.AVALL);
                 getBody().setLinearVelocity(0, -VELOCITAT);
+
             } else {
                 getBody().setLinearVelocity(0, VELOCITAT);
-                
             }
-            
-        }else if (direccio == Direccio.ESQUERRA) {
-            if (getBody().getPosition().x + sprite.getWidth() < 8){
-                setDireccio(Direccio.DRETA);
-                getBody().setLinearVelocity(VELOCITAT, 0);
-            } else {
-                getBody().setLinearVelocity(-VELOCITAT, 0);
-                
-            }
-        } else if (direccio == Direccio.DRETA) {
-            if (getBody().getPosition().x + sprite.getWidth() < 8){
+
+        } else if (this.direccio == Direccio.DRETA) {
+
+            if (getBody().getPosition().x + sprite.getWidth() > PeixeraModel.WORLD_WIDTH) {
                 setDireccio(Direccio.ESQUERRA);
                 getBody().setLinearVelocity(-VELOCITAT, 0);
+
             } else {
                 getBody().setLinearVelocity(VELOCITAT, 0);
-                
             }
+
+        } else if (this.direccio == Direccio.ESQUERRA) {
+            if (getBody().getPosition().x + sprite.getWidth() < 10) {
+                setDireccio(Direccio.DRETA);
+                getBody().setLinearVelocity(VELOCITAT, 0);
+
+            } else {
+                getBody().setLinearVelocity(-VELOCITAT, 0);
+            }
+
         }
+
     }
     public Body getBody() {
         return this.body;
